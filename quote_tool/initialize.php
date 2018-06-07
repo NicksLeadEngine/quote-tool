@@ -1,7 +1,7 @@
 <?php
    /*
    Plugin Name: Lead Engine
-   Plugin URI: 
+   Plugin URI:
    description: Lead Generation Tool for your website. Comes with a settings page to configure the Quote Tool. Just connect it to your HubSpot and Twilio account and wait until someone makes an enquiry. It even sends out an SMS text message and email to notify you of a new lead.
    Version: 1.0
    Author: Nicholas Wan
@@ -60,19 +60,19 @@ function extra_post_info_page(){
   				$phoneNumber = $row['phonenumber'];
   		}
   	}*/
-	
+
 	/*Coding the WordPress way*/
-	
+
 	/*Fetch the current email address and assign it to a variable named $notificationEmail*/
-	
+
 	global $wpdb; // Always create this global variable first
-	
+
 	$notificationEmail = $wpdb->get_var("SELECT email FROM wp_quotetool_email_notification WHERE id = 1");
 	$sendFrom = $wpdb->get_var("SELECT emailfrom FROM wp_quotetool_email_notification WHERE id = 1");
-	
+
 	$pid = $wpdb->get_var("SELECT portalid FROM wp_quotetool_hubspot WHERE id = 1");
 	$guid = $wpdb->get_var("SELECT formguid FROM wp_quotetool_hubspot WHERE id = 1");
-	
+
 	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno FROM wp_quotetool_twilio WHERE id = 1");
 
 		if (isset($_POST['email']))
@@ -83,17 +83,17 @@ function extra_post_info_page(){
       		$twilioToken = $_POST['twiliotoken'];
       		$twilioNumber = $_POST['twilionumber'];
 			$send = $_POST['sendmail'];
-			
+
 			$ID = $_POST['portalid'];
 			$GUID = $_POST['formGuid'];
-			
+
 			$wpdb->update('wp_quotetool_email_notification', array('email' => $email), array('id' => '1'));
 			$wpdb->update('wp_quotetool_email_notification', array('emailfrom' => $send), array('id' => '1'));
-			
+
 			$wpdb->update('wp_quotetool_twilio', array('sidno' => $twilioSid), array('id' => '1'));
 			$wpdb->update('wp_quotetool_twilio', array('tokenno' => $twilioToken), array('id' => '1'));
 			$wpdb->update('wp_quotetool_twilio', array('phoneno' => $twilioNumber), array('id' => '1'));
-			
+
 			$wpdb->update('wp_quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
 			$wpdb->update('wp_quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
 
@@ -103,7 +103,7 @@ function extra_post_info_page(){
 			$stmt1->execute();*/
 
 			echo "Thank you, your settings have been saved!";
-			
+
 			echo "<meta http-equiv='refresh' content='0'>";
 
 		}
@@ -201,7 +201,7 @@ function jal_install() {
 	global $jal_db_version;
 
 	$table_name = $wpdb->prefix . 'quotetool_email_notification';
-	
+
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$sql = "CREATE TABLE $table_name (
@@ -219,18 +219,18 @@ function jal_install() {
 
 function jal_install_data() {
 	global $wpdb;
-	
+
 	$emailto = 'to@example.co.uk';
 	$emailfrom = 'from@example.co.uk';
-	
+
 	$table_name = $wpdb->prefix . 'quotetool_email_notification';
-	
-	$wpdb->insert( 
-		$table_name, 
-		array(  
+
+	$wpdb->insert(
+		$table_name,
+		array(
 			'email' => $emailto,
 			'emailfrom' => $emailfrom,
-		) 
+		)
 	);
 }
 
@@ -247,7 +247,7 @@ function jal_install1() {
 	global $jal_db_version1;
 
 	$table_name = $wpdb->prefix . 'quotetool_twilio';
-	
+
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$sql = "CREATE TABLE $table_name (
@@ -266,20 +266,20 @@ function jal_install1() {
 
 function jal_install_data1() {
 	global $wpdb;
-	
+
 	$twilioSid = 'ACf4c25105893532a7580393c5b9637e8b';
 	$tokenNo = 'ed81000f2462e5dd7d3c1ccebf2532e1';
 	$phoneNo = '+441482240481';
-	
+
 	$table_name = $wpdb->prefix . 'quotetool_twilio';
-	
-	$wpdb->insert( 
-		$table_name, 
-		array(  
+
+	$wpdb->insert(
+		$table_name,
+		array(
 			'sidno' => $twilioSid,
 			'tokenno' => $tokenNo,
 			'phoneno' => $phoneNo,
-		) 
+		)
 	);
 }
 
@@ -296,7 +296,7 @@ function jal_install2() {
 	global $jal_db_version2;
 
 	$table_name = $wpdb->prefix . 'quotetool_hubspot';
-	
+
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$sql = "CREATE TABLE $table_name (
@@ -314,21 +314,25 @@ function jal_install2() {
 
 function jal_install_data2() {
 	global $wpdb;
-	
+
 	$portalId = 'abcd1234';
 	$formGuid = 'abcd1234';
-	
+
 	$table_name = $wpdb->prefix . 'quotetool_hubspot';
-	
-	$wpdb->insert( 
-		$table_name, 
-		array(  
+
+	$wpdb->insert(
+		$table_name,
+		array(
 			'portalid' => $portalId,
 			'formguid' => $formGuid,
-		) 
+		)
 	);
 }
 
 register_activation_hook( __FILE__, 'jal_install2' );
 register_activation_hook( __FILE__, 'jal_install_data2' );
 
+require_once( 'githubuploader.php' );
+if ( is_admin() ) {
+    new BFIGitHubPluginUpdater( __FILE__, 'NicksLeadEngine', "quote-tool" );
+}
