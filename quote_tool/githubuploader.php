@@ -16,9 +16,9 @@ class BFIGitHubPluginUpdater {
         add_filter( "plugins_api", array( $this, "setPluginInfo" ), 10, 3 );
         add_filter( "upgrader_post_install", array( $this, "postInstall" ), 10, 3 );
 
-        $this->pluginFile = "__FILE__";
-        $this->username = "NicksLeadEngine";
-        $this->repo = "quote-tool";
+        $this->pluginFile = '__FILE__';
+        $this->username = 'NicksLeadEngine';
+        $this->repo = 'quote-tool';
         $this->accessToken = $accessToken;
     }
 
