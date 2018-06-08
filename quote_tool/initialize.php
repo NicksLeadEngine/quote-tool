@@ -3,7 +3,7 @@
    Plugin Name: Lead Engine
    Plugin URI:
    description: Lead Generation Tool for your website. Comes with a settings page to configure the Quote Tool. Just connect it to your HubSpot and Twilio account and wait until someone makes an enquiry. It even sends out an SMS text message and email to notify you of a new lead.
-   Version: 1.0
+   Version: 1.0.0
    Author: Nicholas Wan
    Author URI:
    */
