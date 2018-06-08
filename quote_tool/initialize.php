@@ -331,8 +331,3 @@ function jal_install_data2() {
 
 register_activation_hook( __FILE__, 'jal_install2' );
 register_activation_hook( __FILE__, 'jal_install_data2' );
-
-require_once( 'githubuploader.php' );
-if ( is_admin() ) {
-    new BFIGitHubPluginUpdater( __FILE__, 'NicksLeadEngine', "quote-tool" );
-}
