@@ -16,25 +16,25 @@ $guid = $wpdb->get_var("SELECT formguid FROM wp_quotetool_hubspot WHERE id = 1")
 if (isset($_POST['personalTitle']))
 {
 	// Setting up the variables
-	
+
 	$PersonalTitle = $_POST['personalTitle'];
 	$Name = $_POST['fullname'];
 	$Telephone = $_POST['telephoneNumber'];
 	$Email = $_POST['email'];
-	
+
 	$_SESSION['personalTitle'] = $PersonalTitle;
 	$_SESSION['name'] = $Name;
 	$_SESSION['telephone'] = $Telephone;
 	$_SESSION['email'] = $Email;
 
 	// Step 1) Do an SQL lookup to fetch the most recent email address stored in database
-	
+
 	$notificationEmail = $wpdb->get_var("SELECT email FROM wp_quotetool_email_notification");
-	
+
 	$sendFrom = $wpdb->get_var("SELECT emailfrom FROM wp_quotetool_email_notification WHERE id = 1");
-	
+
 	// Step 2) Create and send out the notification email
-	
+
 	$from = $sendFrom; // Needs changing according to user.
 
 	$to = $notificationEmail;
@@ -61,19 +61,19 @@ if (isset($_POST['personalTitle']))
 	$headers .= 'From:' . $from . "\r\n";
 
 	mail($to,$subject,$message,$headers);
-	
+
 	// Step 3) Fetch the most recent Twilio details from database
-	
+
 	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno FROM wp_quotetool_twilio WHERE id = 1");
-	
+
 	// Step 4) Setup and send SMS notification using Twilio and fetched details
-	
+
 	$number = $Telephone;
 	$modifiedNumber = substr($number, 1);
 	$toMobileNumber = "+44" . $modifiedNumber;
 
 	require_once 'twilio-php-master/Twilio/autoload.php';
-	
+
 	$sid = $twilio[0]->sidno; // Twilio SID Number - Get from the Twilio Console
 	$token = $twilio[0]->tokenno; // Twilio API Token - Get from the Twilio Console
 	$client = new Client($sid, $token);
@@ -85,7 +85,7 @@ if (isset($_POST['personalTitle']))
 			'body' => "Thank you for your enquiry." // Body of SMS text message
 		)
 	);
-	
+
 	//Step 5) Process a new form submission in HubSpot in order to create a new Contact.
 
 	$hubspotutk      = $_COOKIE['hubspotutk']; //grab the cookie from the visitors browser.
@@ -99,15 +99,15 @@ if (isset($_POST['personalTitle']))
 	$hs_context_json = json_encode($hs_context);
 
 	//Need to populate these variable with values from the form.
-	$str_post = "&personal_title=" . urlencode($PersonalTitle) 
-		. "&your_name=" . urlencode($Name) 
-		. "&your_telephone=" . urlencode($Telephone) 
-		. "&email=" . urlencode($Email) 
+	$str_post = "&personal_title=" . urlencode($PersonalTitle)
+		. "&your_name=" . urlencode($Name)
+		. "&your_telephone=" . urlencode($Telephone)
+		. "&email=" . urlencode($Email)
 		. "&hs_context=" . urlencode($hs_context_json); //Leave this one be
 
 	//replace the values in this URL with your portal ID and your form GUID
 	//$endpoint = 'https://forms.hubspot.com/uploads/form/v2/4623185/c18d273c-834e-4b4d-9dae-73e503bf2266';
-	
+
 	$endpoint = 'https://forms.hubspot.com/uploads/form/v2/'.$pid.'/'.$guid.'';
 
 	$ch = @curl_init();
@@ -122,7 +122,7 @@ if (isset($_POST['personalTitle']))
 	$status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE); //Log the response status code
 	@curl_close($ch);
 	echo $status_code . " " . $response;
-	
+
 	//echo '<script type="text/javascript">window.location = "http://mortgages.contractors/quote-tool/step-2/"</script>';
 	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
 }

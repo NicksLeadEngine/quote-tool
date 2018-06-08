@@ -37,30 +37,6 @@ function extra_post_info_page(){
 
 	<?php
 
-	/*include_once("inc/mysqlconnection.php");
-
-    $sqllookup = $conn->query("SELECT notify FROM le_emailnotification ORDER BY userID DESC LIMIT 1");
-
-  	if($sqllookup->num_rows>0)
-  	{
-  		while ($row = $sqllookup->fetch_assoc())
-  		{
-  				$notificationEmail = $row['notify'];
-  		}
-  	}
-
-    $sqllookup1 = $conn->query("SELECT sid, authtoken, phonenumber FROM le_twilio ORDER BY userID DESC LIMIT 1");
-
-  	if($sqllookup1->num_rows>0)
-  	{
-  		while ($row = $sqllookup1->fetch_assoc())
-  		{
-  				$accountSid = $row['sid'];
-  				$authToken = $row['authtoken'];
-  				$phoneNumber = $row['phonenumber'];
-  		}
-  	}*/
-
 	/*Coding the WordPress way*/
 
 	/*Fetch the current email address and assign it to a variable named $notificationEmail*/
@@ -96,11 +72,6 @@ function extra_post_info_page(){
 
 			$wpdb->update('wp_quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
 			$wpdb->update('wp_quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
-
-      		/*$sql1 = "INSERT INTO `le_twilio` (`sid`, `authtoken`, `phonenumber`) VALUES (?, ?, ?)";
-			$stmt1 = $conn->prepare($sql1);
-			$stmt1->bind_param('sss', $twilioSid, $twilioToken, $twilioNumber);
-			$stmt1->execute();*/
 
 			echo "Thank you, your settings have been saved!";
 
