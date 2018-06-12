@@ -55,9 +55,9 @@ function extra_post_info_page(){
 		{
 
 			$email = $_POST['email'];
-      		$twilioSid = $_POST['twiliosid'];
-      		$twilioToken = $_POST['twiliotoken'];
-      		$twilioNumber = $_POST['twilionumber'];
+      $twilioSid = $_POST['twiliosid'];
+      $twilioToken = $_POST['twiliotoken'];
+      $twilioNumber = $_POST['twilionumber'];
 			$send = $_POST['sendmail'];
 
 			$ID = $_POST['portalid'];
@@ -113,9 +113,12 @@ function extra_post_info_page(){
 			<label>Your Twilio Token Number:</label>
 			<input type="text" class="form-control" id="twiliotoken" name="twiliotoken" value="<?php echo $twilio[0]->tokenno; ?>">
 			<br>
-      		<label>Your Twilio Phone Number:</label>
+      <label>Your Twilio Phone Number:</label>
 			<input type="text" class="form-control" id="twiliotoken" name="twilionumber" value="<?php echo $twilio[0]->phoneno; ?>">
 			<br>
+      <label>Your Personalized Text Message:</label>
+      <textarea class="form-control" rows="4" id="SMS" name="SMS"></textarea>
+      <br>
 			<h2>HubSpot Account Settings:</h2>
 			<label style="color:#ff0000;">These can be found on your HubSpot Dashboard / Form Page</label>
 			<br>
