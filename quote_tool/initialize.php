@@ -53,8 +53,40 @@ function extra_post_info_page(){
 
 		if (isset($_POST['email']))
 		{
+      // Validating the character length for SMS message
+      if (strlen($twilioMessage) > 160){
 
-			$email = $_POST['email'];
+        echo "Error: Your text message has exceeded the maximum character length Twilio can support. Please try again."
+
+      } else{
+        $email = $_POST['email'];
+        $twilioSid = $_POST['twiliosid'];
+        $twilioToken = $_POST['twiliotoken'];
+        $twilioNumber = $_POST['twilionumber'];
+        $twilioMessage = $_POST['SMS'];
+  			$send = $_POST['sendmail'];
+
+  			$ID = $_POST['portalid'];
+  			$GUID = $_POST['formGuid'];
+
+  			$wpdb->update('wp_quotetool_email_notification', array('email' => $email), array('id' => '1'));
+  			$wpdb->update('wp_quotetool_email_notification', array('emailfrom' => $send), array('id' => '1'));
+
+  			$wpdb->update('wp_quotetool_twilio', array('sidno' => $twilioSid), array('id' => '1'));
+  			$wpdb->update('wp_quotetool_twilio', array('tokenno' => $twilioToken), array('id' => '1'));
+  			$wpdb->update('wp_quotetool_twilio', array('phoneno' => $twilioNumber), array('id' => '1'));
+        $wpdb->update('wp_quotetool_twilio', array('message' => $twilioMessage), array('id' => '1'));
+
+
+  			$wpdb->update('wp_quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
+  			$wpdb->update('wp_quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
+
+  			echo "Thank you, your settings have been saved!";
+
+  			echo "<meta http-equiv='refresh' content='0'>";
+      }
+
+			/*$email = $_POST['email'];
       $twilioSid = $_POST['twiliosid'];
       $twilioToken = $_POST['twiliotoken'];
       $twilioNumber = $_POST['twilionumber'];
@@ -78,7 +110,7 @@ function extra_post_info_page(){
 
 			echo "Thank you, your settings have been saved!";
 
-			echo "<meta http-equiv='refresh' content='0'>";
+			echo "<meta http-equiv='refresh' content='0'>";*/
 
 		}
 
