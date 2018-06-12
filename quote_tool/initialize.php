@@ -50,6 +50,7 @@ function extra_post_info_page(){
 	$guid = $wpdb->get_var("SELECT formguid FROM wp_quotetool_hubspot WHERE id = 1");
 
 	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno FROM wp_quotetool_twilio WHERE id = 1");
+  $message = $wpdb->get_results("SELECT message FROM wp_quotetool_twilio WHERE id = 1");
 
 		if (isset($_POST['email']))
 		{
@@ -58,6 +59,7 @@ function extra_post_info_page(){
       $twilioSid = $_POST['twiliosid'];
       $twilioToken = $_POST['twiliotoken'];
       $twilioNumber = $_POST['twilionumber'];
+      $twilioMessage = $_POST['SMS'];
 			$send = $_POST['sendmail'];
 
 			$ID = $_POST['portalid'];
@@ -69,6 +71,8 @@ function extra_post_info_page(){
 			$wpdb->update('wp_quotetool_twilio', array('sidno' => $twilioSid), array('id' => '1'));
 			$wpdb->update('wp_quotetool_twilio', array('tokenno' => $twilioToken), array('id' => '1'));
 			$wpdb->update('wp_quotetool_twilio', array('phoneno' => $twilioNumber), array('id' => '1'));
+      $wpdb->update('wp_quotetool_twilio', array('message' => $twilioMessage), array('id' => '1'));
+
 
 			$wpdb->update('wp_quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
 			$wpdb->update('wp_quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
@@ -117,7 +121,7 @@ function extra_post_info_page(){
 			<input type="text" class="form-control" id="twiliotoken" name="twilionumber" value="<?php echo $twilio[0]->phoneno; ?>">
 			<br>
       <label>Your Personalized SMS Message:</label>
-      <textarea class="form-control" rows="4" id="SMS" name="SMS"></textarea>
+      <textarea class="form-control" rows="4" id="SMS" name="SMS" value="<?php echo $message; ?>"></textarea>
       <br>
 			<h2>HubSpot Account Settings:</h2>
 			<label style="color:#ff0000;">These can be found on your HubSpot Dashboard / Form Page</label>
@@ -229,6 +233,7 @@ function jal_install1() {
 		sidno tinytext NOT NULL,
 		tokenno tinytext NOT NULL,
 		phoneno tinytext NOT NULL,
+    message tinytext NOT NULL,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
 
@@ -244,6 +249,7 @@ function jal_install_data1() {
 	$twilioSid = 'ACf4c25105893532a7580393c5b9637e8b';
 	$tokenNo = 'ed81000f2462e5dd7d3c1ccebf2532e1';
 	$phoneNo = '+441482240481';
+  $text = 'Hi '.$current_user->user_login.', thank you for your enquiry. We will be calling you back from 01234 xxxxx. Please save it to your contacts so you know that its us.'
 
 	$table_name = $wpdb->prefix . 'quotetool_twilio';
 
@@ -253,6 +259,7 @@ function jal_install_data1() {
 			'sidno' => $twilioSid,
 			'tokenno' => $tokenNo,
 			'phoneno' => $phoneNo,
+      'message' => $text,
 		)
 	);
 }
