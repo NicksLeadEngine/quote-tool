@@ -121,7 +121,7 @@ function extra_post_info_page(){
 			<input type="text" class="form-control" id="twiliotoken" name="twilionumber" value="<?php echo $twilio[0]->phoneno; ?>">
 			<br>
       <label>Your Personalized SMS Message:</label>
-      <textarea class="form-control" rows="4" id="SMS" name="SMS" value="<?php echo $message; ?>"></textarea>
+      <textarea class="form-control" rows="4" id="SMS" name="SMS"><?php echo $message;?></textarea>
       <br>
 			<h2>HubSpot Account Settings:</h2>
 			<label style="color:#ff0000;">These can be found on your HubSpot Dashboard / Form Page</label>
