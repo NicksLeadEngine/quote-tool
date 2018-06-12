@@ -49,8 +49,7 @@ function extra_post_info_page(){
 	$pid = $wpdb->get_var("SELECT portalid FROM wp_quotetool_hubspot WHERE id = 1");
 	$guid = $wpdb->get_var("SELECT formguid FROM wp_quotetool_hubspot WHERE id = 1");
 
-	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno FROM wp_quotetool_twilio WHERE id = 1");
-  $message = $wpdb->get_results("SELECT message FROM wp_quotetool_twilio WHERE id = 1");
+	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno, message FROM wp_quotetool_twilio WHERE id = 1");
 
 		if (isset($_POST['email']))
 		{
@@ -121,7 +120,7 @@ function extra_post_info_page(){
 			<input type="text" class="form-control" id="twiliotoken" name="twilionumber" value="<?php echo $twilio[0]->phoneno; ?>">
 			<br>
       <label>Your Personalized SMS Message:</label>
-      <textarea class="form-control" rows="4" id="SMS" name="SMS"><?php echo $message;?></textarea>
+      <textarea class="form-control" rows="4" id="SMS" name="SMS"><?php echo $twilio[0]->message; ?></textarea>
       <br>
 			<h2>HubSpot Account Settings:</h2>
 			<label style="color:#ff0000;">These can be found on your HubSpot Dashboard / Form Page</label>
