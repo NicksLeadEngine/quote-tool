@@ -64,7 +64,7 @@ if (isset($_POST['personalTitle']))
 
 	// Step 3) Fetch the most recent Twilio details from database
 
-	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno FROM wp_quotetool_twilio WHERE id = 1");
+	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno, message FROM wp_quotetool_twilio WHERE id = 1");
 
 	// Step 4) Setup and send SMS notification using Twilio and fetched details
 
@@ -82,7 +82,7 @@ if (isset($_POST['personalTitle']))
 		$toMobileNumber,
 		array(
 			'from' => $twilio[0]->phoneno,//"+447403925212", // From the Twilio mobile number
-			'body' => "Thank you for your enquiry." // Body of SMS text message
+			'body' => $twilio[0]->message // Body of SMS text message
 		)
 	);
 
