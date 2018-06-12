@@ -116,7 +116,7 @@ function extra_post_info_page(){
       <label>Your Twilio Phone Number:</label>
 			<input type="text" class="form-control" id="twiliotoken" name="twilionumber" value="<?php echo $twilio[0]->phoneno; ?>">
 			<br>
-      <label>Your Personalized Text Message:</label>
+      <label>Your Personalized SMS Message:</label>
       <textarea class="form-control" rows="4" id="SMS" name="SMS"></textarea>
       <br>
 			<h2>HubSpot Account Settings:</h2>
