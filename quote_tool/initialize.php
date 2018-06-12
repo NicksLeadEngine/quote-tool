@@ -249,7 +249,7 @@ function jal_install_data1() {
 	$twilioSid = 'ACf4c25105893532a7580393c5b9637e8b';
 	$tokenNo = 'ed81000f2462e5dd7d3c1ccebf2532e1';
 	$phoneNo = '+441482240481';
-  $text = 'Hi '.$current_user->user_login.', thank you for your enquiry. We will be calling you back from 01234 xxxxx. Please save it to your contacts so you know that its us.'
+  $text = 'Hi, thank you for your enquiry. We will be calling you back from 01234 xxxxx. Please save it to your contacts so you know that its us.'
 
 	$table_name = $wpdb->prefix . 'quotetool_twilio';
 
