@@ -56,7 +56,7 @@ function extra_post_info_page(){
       // Validating the character length for SMS message
       if (strlen($twilioMessage) > 160){
 
-        echo "Error: Your text message has exceeded the maximum character length Twilio can support. Please try again."
+        echo "Error: Your text message has exceeded the maximum character length Twilio can support. Please try again.";
 
       } else{
         $email = $_POST['email'];
