@@ -1,6 +1,6 @@
 <?php
    /*
-   Plugin Name: Lead Engine
+   Plugin Name: Quote Tool
    Plugin URI:
    description: Lead Generation Tool for your website. Comes with a settings page to configure the Quote Tool. Just connect it to your HubSpot and Twilio account and wait until someone makes an enquiry. It even sends out an SMS text message and email to notify you of a new lead.
    Version: 1.0.0
@@ -13,10 +13,10 @@ add_action( 'admin_menu', 'extra_post_info_menu');
 
 function extra_post_info_menu(){
 
-  $page_title = 'Lead Engine';
-  $menu_title = 'Lead Engine';
+  $page_title = 'Quote Tool';
+  $menu_title = 'Quote Tool';
   $capability = 'manage_options';
-  $menu_slug  = 'lead-engine';
+  $menu_slug  = 'quote-tool';
   $function   = 'extra_post_info_page';
   $icon_url   = 'dashicons-admin-tools';
   $position   = 4;
