@@ -13,6 +13,8 @@ global $wpdb;
 $pid = $wpdb->get_var("SELECT portalid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
 $guid = $wpdb->get_var("SELECT formguid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
 
+echo $_server['HTTP_HOST']."/quote-tool/step-2";
+
 if (isset($_POST['personalTitle']))
 {
 	// Setting up the variables
@@ -125,6 +127,7 @@ if (isset($_POST['personalTitle']))
 
 	//echo '<script type="text/javascript">window.location = "http://mortgages.contractors/quote-tool/step-2/"</script>';
 	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
+
 }
 
 ?>
