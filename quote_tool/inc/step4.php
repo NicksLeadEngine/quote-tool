@@ -89,7 +89,7 @@ if (isset($_POST['propertyValue']))
 	@curl_close($ch);
 	echo $status_code . " " . $response;
 
-	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/thank-you".'"</script>';
+	echo '<script type="text/javascript">window.location = "'.$_SERVER['SERVER_NAME'].$_SERVER['HTTP_HOST']."/quote-tool/thank-you".'"</script>';
 }
 ?>
 
