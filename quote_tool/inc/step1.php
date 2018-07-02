@@ -13,7 +13,7 @@ global $wpdb;
 $pid = $wpdb->get_var("SELECT portalid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
 $guid = $wpdb->get_var("SELECT formguid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
 
-echo $_SERVER['SERVER_NAME'].$_SERVER['HTTP_HOST']."/quote-tool/step-2";
+echo $_SERVER['HTTP_HOST']."/quote-tool/step-2";
 
 if (isset($_POST['personalTitle']))
 {
