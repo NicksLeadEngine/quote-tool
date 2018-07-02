@@ -65,7 +65,7 @@ if (isset($_POST['addressLine1']))
 	@curl_close($ch);
 	echo $status_code . " " . $response;
 
-	echo '<script type="text/javascript">window.location = "'.$_SERVER['SERVER_NAME'].$_SERVER['HTTP_HOST']."/quote-tool/step-4".'"</script>';
+	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-4".'"</script>';
 }
 
 ?>
