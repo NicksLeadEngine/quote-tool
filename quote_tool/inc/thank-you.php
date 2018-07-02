@@ -5,12 +5,12 @@ error_reporting(0); // Please comment out this line for debugging/troubleshootin
 session_start();
 
 /*Fetch the current email address and assign it to a variable named $notificationEmail*/
-	
-global $wpdb; // Always create this global variable first
-	
-$notificationEmail = $wpdb->get_var("SELECT email FROM wp_quotetool_email_notification");
 
-$sendFrom = $wpdb->get_var("SELECT emailfrom FROM wp_quotetool_email_notification WHERE id = 1");
+global $wpdb; // Always create this global variable first
+
+$notificationEmail = $wpdb->get_var("SELECT email FROM {$wpdb->prefix}quotetool_email_notification");
+
+$sendFrom = $wpdb->get_var("SELECT emailfrom FROM {$wpdb->prefix}quotetool_email_notification WHERE id = 1");
 
 $to = $_SESSION['email'];
 $subject = "Quote Tool - Quote Confirmation";

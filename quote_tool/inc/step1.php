@@ -10,8 +10,8 @@ $wholeLink = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 global $wpdb;
 
-$pid = $wpdb->get_var("SELECT portalid FROM wp_quotetool_hubspot WHERE id = 1");
-$guid = $wpdb->get_var("SELECT formguid FROM wp_quotetool_hubspot WHERE id = 1");
+$pid = $wpdb->get_var("SELECT portalid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
+$guid = $wpdb->get_var("SELECT formguid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
 
 if (isset($_POST['personalTitle']))
 {
@@ -29,9 +29,9 @@ if (isset($_POST['personalTitle']))
 
 	// Step 1) Do an SQL lookup to fetch the most recent email address stored in database
 
-	$notificationEmail = $wpdb->get_var("SELECT email FROM wp_quotetool_email_notification");
+	$notificationEmail = $wpdb->get_var("SELECT email FROM {$wpdb->prefix}quotetool_email_notification");
 
-	$sendFrom = $wpdb->get_var("SELECT emailfrom FROM wp_quotetool_email_notification WHERE id = 1");
+	$sendFrom = $wpdb->get_var("SELECT emailfrom FROM {$wpdb->prefix}quotetool_email_notification WHERE id = 1");
 
 	// Step 2) Create and send out the notification email
 
@@ -64,7 +64,7 @@ if (isset($_POST['personalTitle']))
 
 	// Step 3) Fetch the most recent Twilio details from database
 
-	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno, message FROM wp_quotetool_twilio WHERE id = 1");
+	$twilio = $wpdb->get_results("SELECT sidno, tokenno, phoneno, message FROM {$wpdb->prefix}quotetool_twilio WHERE id = 1");
 
 	// Step 4) Setup and send SMS notification using Twilio and fetched details
 

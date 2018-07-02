@@ -6,10 +6,15 @@ session_start();
 
 $wholeLink = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
+global $wpdb;
+
+$pid = $wpdb->get_var("SELECT portalid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
+$guid = $wpdb->get_var("SELECT formguid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
+
 if (isset($_POST['citizen']))
 {
 	//include_Once('mysqlconnection.php');
-	
+
 	$_SESSION['citizen'] = $_POST['citizen'];
 	$_SESSION['dateOfBirth'] = $_POST['dateOfBirth'];
 	$_SESSION['option'] = $_POST['option'];
@@ -18,7 +23,7 @@ if (isset($_POST['citizen']))
 	$_SESSION['secondApplicantName'] = $_POST['secondApplicantName'];
 	$_SESSION['secondApplicantEmail'] = $_POST['secondApplicantEmail'];
 	$_SESSION['dob'] = $_POST['dob'];
-	
+
 	//Process a new form submission in HubSpot in order to create a new Contact.
 
 	$hubspotutk      = $_COOKIE['hubspotutk']; //grab the cookie from the visitors browser.
@@ -32,9 +37,9 @@ if (isset($_POST['citizen']))
 	$hs_context_json = json_encode($hs_context);
 
 	//Need to populate these variable with values from the form.
-	$str_post = "&citizen=" . urlencode($_SESSION['citizen']) 
-		. "&date_of_birth=" . urlencode($_SESSION['dateOfBirth']) 
-		. "&second_applicant_number=" . urlencode($_SESSION['secondApplicantNumber']) 
+	$str_post = "&citizen=" . urlencode($_SESSION['citizen'])
+		. "&date_of_birth=" . urlencode($_SESSION['dateOfBirth'])
+		. "&second_applicant_number=" . urlencode($_SESSION['secondApplicantNumber'])
 		. "&citizen_second=" . urlencode($_SESSION['citizenSecond'])
 		. "&second_applicant_name=" . urlencode($_SESSION['secondApplicantName'])
 		. "&second_applicant_email=" . urlencode($_SESSION['secondApplicantEmail'])
@@ -56,7 +61,7 @@ if (isset($_POST['citizen']))
 	$status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE); //Log the response status code
 	@curl_close($ch);
 	echo $status_code . " " . $response;
-	
+
 	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-3".'"</script>';
 }
 ?>
@@ -74,21 +79,21 @@ if (isset($_POST['citizen']))
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+
 		$("#applicant1").hide();
 		$("#applicant2").hide();
 		$("#applicant3").hide();
-	
+
   	$("#no").click(function(){
 		$("#applicant1").hide();
 		$("#applicant2").hide();
-		$("#applicant3").hide();	
+		$("#applicant3").hide();
 	});
-	
+
 	$("#yes").click(function(){
 		$("#applicant1").show();
 		$("#applicant2").show();
-		$("#applicant3").show();	
+		$("#applicant3").show();
 	});
 });
 </script>
@@ -99,7 +104,7 @@ $(document).ready(function() {
 		width:150px!important;
 		height: 150px!important;
 	}
- 
+
 	input[type="radio"]:checked ~ label{
 		background-color: lightgreen;
 	}
@@ -111,12 +116,12 @@ $(document).ready(function() {
 	label{
 		margin-bottom: 0%;
 	}
-	
+
 	label:hover{
 		background-color: #abc8d9!important;
 		transition: .5s ease;
 	}
-	
+
 </style>
 </head>
 <body>
@@ -131,7 +136,7 @@ $(document).ready(function() {
 		</div>
 		<br>
 			<div class="row">
-				
+
 				<div class="col-md-6">
 					<div class="form-group row">
 						<label for="example-date-input" class="col-4 col-form-label">Citizen</label>
@@ -153,8 +158,8 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 				<div class="col-md-4">
 					<div class="text-center">
 					<div class="card">
@@ -163,7 +168,7 @@ $(document).ready(function() {
 						<div class="overlay">
 							<div class="card-block">
 								<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Home.png">
-								
+
 								<h4 class="card-title">Buy my first house</h4>
 							</div>
 						</div>
@@ -176,7 +181,7 @@ $(document).ready(function() {
 						<div class="overlay">
 							<div class="card-block">
 								<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Sign.png">
-								
+
 								<h4 class="card-title">Buy to let</h4>
 							</div>
 						</div>
@@ -193,7 +198,7 @@ $(document).ready(function() {
 							<div class="overlay">
 								<div class="card-block">
 									<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Moving.png">
-									
+
 									<h4 class="card-title">Move Home</h4>
 								</div>
 							</div>
@@ -206,7 +211,7 @@ $(document).ready(function() {
 							<div class="overlay">
 								<div class="card-block">
 									<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Remortgage.png">
-									
+
 									<h4 class="card-title">Remortgage</h4>
 								</div>
 							</div>
@@ -223,7 +228,7 @@ $(document).ready(function() {
 							<div class="overlay">
 								<div class="card-block">
 									<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Equity.png">
-									
+
 									<h4 class="card-title">Release Equity</h4>
 								</div>
 							</div>
@@ -236,7 +241,7 @@ $(document).ready(function() {
 							<div class="overlay">
 								<div class="card-block">
 									<img class="card-img-top" src="http://mortgages.contractors/wp-content/uploads/2018/06/Debts.png">
-									
+
 									<h4 class="card-title">Consolidate Debts</h4>
 								</div>
 							</div>
@@ -245,17 +250,17 @@ $(document).ready(function() {
 						<br>
 					</div>
 				</div>
-				
+
 				<div class="col-md-12">
 					<br>
 					<h2>Joint Application?</h2>
 					<br>
 					<p><strong>Add A Second Applicant?</strong></p>
-					
+
 					<button class="btn btn-info" type="button" id="yes">Yes</button>
 					<button class="btn btn-info" type="button" id="no">No</button>
 				</div>
-				
+
 				<div class="col-md-6">
 				<br>
 					<div class="form-group row" id="applicant1">
@@ -264,7 +269,7 @@ $(document).ready(function() {
 							<input class="form-control" type="number" id="example-text-input" name="secondApplicantNumber">
 						</div>
 					</div>
-					
+
 					<div class="form-group row" id="applicant2">
 						<label for="example-date-input" class="col-3 col-form-label">Citizen</label>
 						<div class="col-9">
@@ -277,7 +282,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-6" id="applicant3">
 				<br>
 					<div class="form-group row">
@@ -299,7 +304,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-12">
 					<div class="text-center">
 					<br>

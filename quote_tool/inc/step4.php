@@ -6,16 +6,21 @@ session_start();
 
 $wholeLink = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
+global $wpdb;
+
+$pid = $wpdb->get_var("SELECT portalid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
+$guid = $wpdb->get_var("SELECT formguid FROM {$wpdb->prefix}quotetool_hubspot WHERE id = 1");
+
 if (isset($_POST['propertyValue']))
 {
 	//include_Once('mysqlconnection.php');
-	
+
 	// Index
 	$Personal = $_SESSION['personalTitle'];
 	$Name = $_SESSION['name'];
 	$Telephone = $_SESSION['telephoneNumber'];
 	$Email = $_SESSION['email'];
-	
+
 	// Step 1
 	$Citizen = $_SESSION['citizen'];
 	$DateOfBirth = $_SESSION['dateOfBirth'];
@@ -25,7 +30,7 @@ if (isset($_POST['propertyValue']))
 	$SecondName = $_SESSION['secondApplicantName'];
 	$SecondEmail = $_SESSION['secondApplicantEmail'];
 	$DOB = $_SESSION['dob'];
-	
+
 	// Step 2
 	$Address1 = $_SESSION['addressLine1'];
 	$Address2 = $_SESSION['addressLine2'];
@@ -36,19 +41,19 @@ if (isset($_POST['propertyValue']))
 	$Years = $_SESSION['years'];
 	$EmployerName = $_SESSION['employerName'];
 	$JobTitle = $_SESSION['jobTitle'];
-	
+
 	// Step 3
-	
+
 	$_SESSION['propertyValue'] = $_POST['propertyValue'];
 	$_SESSION['deposit'] = $_POST['deposit'];
 	$_SESSION['date'] = $_POST['date'];
 	$_SESSION['time'] = $_POST['time'];
-	
+
 	$PropertyValue = $_POST['propertyValue'];
 	$Deposit = $_POST['deposit'];
 	$Date = $_POST['date'];
 	$Time = $_POST['time'];
-	
+
 	//Process a new form submission in HubSpot in order to create a new Contact.
 
 	$hubspotutk      = $_COOKIE['hubspotutk']; //grab the cookie from the visitors browser.
@@ -62,10 +67,10 @@ if (isset($_POST['propertyValue']))
 	$hs_context_json = json_encode($hs_context);
 
 	//Need to populate these variable with values from the form.
-	$str_post = "&property_value=" . urlencode($_SESSION['propertyValue']) 
-		. "&deposit=" . urlencode($_SESSION['deposit']) 
-		. "&date=" . urlencode($_SESSION['date']) 
-		. "&time=" . urlencode($_SESSION['time']) 
+	$str_post = "&property_value=" . urlencode($_SESSION['propertyValue'])
+		. "&deposit=" . urlencode($_SESSION['deposit'])
+		. "&date=" . urlencode($_SESSION['date'])
+		. "&time=" . urlencode($_SESSION['time'])
 		. "&hs_context=" . urlencode($hs_context_json); //Leave this one be
 
 	//replace the values in this URL with your portal ID and your form GUID
@@ -83,7 +88,7 @@ if (isset($_POST['propertyValue']))
 	$status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE); //Log the response status code
 	@curl_close($ch);
 	echo $status_code . " " . $response;
-	
+
 	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/thank-you".'"</script>';
 }
 ?>
@@ -145,7 +150,7 @@ if (isset($_POST['propertyValue']))
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-md-12">
 			<div class="text-center">
 				<br>
