@@ -63,17 +63,17 @@ function extra_post_info_page(){
 			$ID = $_POST['portalid'];
 			$GUID = $_POST['formGuid'];
 
-			$wpdb->update('{$wpdb->prefix}quotetool_email_notification', array('email' => $email), array('id' => '1'));
-			$wpdb->update('{$wpdb->prefix}quotetool_email_notification', array('emailfrom' => $send), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_email_notification', array('email' => $email), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_email_notification', array('emailfrom' => $send), array('id' => '1'));
 
-			$wpdb->update('{$wpdb->prefix}quotetool_twilio', array('sidno' => $twilioSid), array('id' => '1'));
-			$wpdb->update('{$wpdb->prefix}quotetool_twilio', array('tokenno' => $twilioToken), array('id' => '1'));
-			$wpdb->update('{$wpdb->prefix}quotetool_twilio', array('phoneno' => $twilioNumber), array('id' => '1'));
-      $wpdb->update('{$wpdb->prefix}quotetool_twilio', array('message' => $twilioMessage), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_twilio', array('sidno' => $twilioSid), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_twilio', array('tokenno' => $twilioToken), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_twilio', array('phoneno' => $twilioNumber), array('id' => '1'));
+      $wpdb->update($wpdb->prefix . 'quotetool_twilio', array('message' => $twilioMessage), array('id' => '1'));
 
 
-			$wpdb->update('{$wpdb->prefix}quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
-			$wpdb->update('{$wpdb->prefix}quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_hubspot', array('portalid' => $ID), array('id' => '1'));
+			$wpdb->update($wpdb->prefix . 'quotetool_hubspot', array('formguid' => $GUID), array('id' => '1'));
 
 			echo "Thank you, your settings have been saved!";
 
