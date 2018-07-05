@@ -127,8 +127,7 @@ if (isset($_POST['personalTitle']))
 
 	//echo '<script type="text/javascript">window.location = "http://mortgages.contractors/quote-tool/step-2/"</script>';
 	//echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
-  $redirectUrl = $_SERVER['HTTP_HOST']."/quote-tool/step-2";
-	wp_redirect($redirectUrl);
+  header("Location: ".$_SERVER['HTTP_HOST']."/quote-tool/step-2");
 }
 
 ?>
