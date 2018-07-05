@@ -126,8 +126,8 @@ if (isset($_POST['personalTitle']))
 	echo $status_code . " " . $response;
 
 	//echo '<script type="text/javascript">window.location = "http://mortgageresponse.co.uk/quote-tool/step-2/"</script>';
-	//echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
-	header('Location: '.$_SERVER['HTTP_HOST'].'/quote-tool/step-2');
+	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
+	//header('Location: '.$_SERVER['HTTP_HOST'].'/quote-tool/step-2');
 }
 
 ?>
