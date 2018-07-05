@@ -70,7 +70,7 @@ if (isset($_POST['personalTitle']))
 
 	// Step 4) Setup and send SMS notification using Twilio and fetched details
 
-	$number = $Telephone;
+	/*$number = $Telephone;
 	$modifiedNumber = substr($number, 1);
 	$toMobileNumber = "+44" . $modifiedNumber;
 
@@ -86,7 +86,7 @@ if (isset($_POST['personalTitle']))
 			'from' => $twilio[0]->phoneno,//"+447403925212", // From the Twilio mobile number
 			'body' => $twilio[0]->message // Body of SMS text message
 		)
-	);
+	);*/
 
 	//Step 5) Process a new form submission in HubSpot in order to create a new Contact.
 
@@ -126,7 +126,7 @@ if (isset($_POST['personalTitle']))
 	echo $status_code . " " . $response;
 
 	//echo '<script type="text/javascript">window.location = "http://mortgageresponse.co.uk/quote-tool/step-2/"</script>';
-	echo '<script type="text/javascript">window.location = "'.$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
+	echo '<script type="text/javascript">window.location = "'$_SERVER['HTTP_HOST']."/quote-tool/step-2".'"</script>';
 	//header('Location: '.$_SERVER['HTTP_HOST'].'/quote-tool/step-2');
 }
 
